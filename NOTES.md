@@ -1,5 +1,5 @@
 # 📝 Mes notes de formation PHP
-## Jour 0 - 2026-01-06
+## Jour 0 - 2026-01-06 
 
 - Installation terminée
 - Stack : Nginx + PHP-FPM + MariaDB
@@ -17,7 +17,7 @@
 ---
 
 ## Jour 02: 2026-01-06
-## Les tableaux
+### Les tableaux
 
 - Exercices 1 à 6 complétés
 - Catalogue produits créé
@@ -28,8 +28,17 @@
 ---
 
 ## Jour 03: 2026-01-07:
+### Les boucles
 
 - Exercices 1 à 6 complétés
 - Exercices ajoutés au répo Github
 - Modification du catalogue avec génération de fiche produits avec une boucle foreach
 
+---
+
+## jOUR 04: 2026-01-08:
+### les conditions
+
+- Exercices 1 à 6 complétés
+- Exercices ajouté au répo Github
+- Modifications des badges du catalogues en fonction de conditions
