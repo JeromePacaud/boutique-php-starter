@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once("../app/data.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +104,12 @@ require_once("../app/data.php");
 
                 <div class="catalog-main">
                     <div class="catalog-header">
-                        <p><strong>8</strong> produits trouvés</p>
+                        <p>
+                            <strong><?= $totalProducts ?></strong> produits trouvés
+                            <strong><?= $productInStock ?></strong> produits en stock
+                            <strong><?= $discountProduct ?></strong> produits en promo
+                            <strong><?= $productOutOfStock ?></strong> produits en Rupture
+                        </p>
                         <div class="catalog-header__sort">
                             <label>Trier :</label>
                             <select class="form-select" style="width:auto">
@@ -119,198 +125,30 @@ require_once("../app/data.php");
                      8 PRODUITS
                      JOUR 3 : foreach
                      JOUR 4 : Badges conditionnels
-                     ============================================ -->
+                     =======================badge--out-of-stock===================== -->
+
                     <div class="products-grid">
 
                         <?php foreach ($products as $product): ?>
-                            <!-- 1. T-shirt - NOUVEAU -->
-                            <article class="product-card">
-                                <div class="product-card__image-wrapper">
-                                    <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=T-shirt" alt="T-shirt" class="product-card__image">
-                                    <div class="product-card__badges"><span class="badge badge--new">Nouveau</span></div>
-                                </div>
-                                <div class="product-card__content">
-                                    <span class="product-card__category"><?= $product['category'] ?></span>
-                                    <a href="produit.html?id=1" class="product-card__title"><?= $product["name"] ?></a>
-                                    <div class="product-card__price"><span class="product-card__price-current"><?= $product["price"] ?></span></div>
-                                    <p class="product-card__stock product-card__stock--available">✓ En stock <?= $product["stock"] ?></p>
-                                    <div class="product-card__actions">
-                                        <form action="panier.php" method="POST">
-                                            <input type="hidden" name="product_id" value="1">
-                                            <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </article>
+                            <?= createProductCard($product); ?>
                         <?php endforeach ?>
 
+                    </div>
 
-                        <!-- <article class="product-card">
-                            <div class="product-card__image-wrapper">
-                                <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Sneakers" alt="Sneakers" class="product-card__image">
-                                <div class="product-card__badges">
-                                    <span class="badge badge--promo">-20%</span>
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Sneakers" alt="Sneakers" class="product-card__image">
-                                            <div class="product-card__badges">
-                                                <span class="badge badge--promo">-20%</span>
-                                                <span class="badge badge--low-stock">Derniers</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Chaussures</span>
-                                            <a href="produit.html?id=2" class="product-card__title">Sneakers Urban</a>
-                                            <div class="product-card__price">
-                                                <span class="product-card__price-current">79,99 €</span>
-                                                <span class="product-card__price-old">99,99 €</span>
-                                            </div>
-                                            <p class="product-card__stock product-card__stock--low">⚠ Plus que 3</p>
-                                            <div class="product-card__actions">
-                                                <form action="panier.html" method="POST">
-                                                    <input type="hidden" name="product_id" value="2">
-                                                    <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Casquette" alt="Casquette" class="product-card__image">
-                                            <div class="product-card__badges"></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Accessoires</span>
-                                            <a href="produit.html?id=3" class="product-card__title">Casquette Vintage</a>
-                                            <div class="product-card__price"><span class="product-card__price-current">24,99 €</span></div>
-                                            <p class="product-card__stock product-card__stock--available">✓ En stock (28)</p>
-                                            <div class="product-card__actions">
-                                                <form action="panier.html" method="POST">
-                                                    <input type="hidden" name="product_id" value="3">
-                                                    <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Jean" alt="Jean" class="product-card__image">
-                                            <div class="product-card__badges"><span class="badge badge--promo">-30%</span></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Vêtements</span>
-                                            <a href="produit.html?id=4" class="product-card__title">Jean Slim Stretch</a>
-                                            <div class="product-card__price">
-                                                <span class="product-card__price-current">55,99 €</span>
-                                                <span class="product-card__price-old">79,99 €</span>
-                                            </div>
-                                            <p class="product-card__stock product-card__stock--available">✓ En stock (20)</p>
-                                            <div class="product-card__actions">
-                                                <form action="panier.html" method="POST">
-                                                    <input type="hidden" name="product_id" value="4">
-                                                    <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Sac" alt="Sac" class="product-card__image">
-                                            <div class="product-card__badges"><span class="badge badge--new">Nouveau</span></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Accessoires</span>
-                                            <a href="produit.html?id=5" class="product-card__title">Sac à dos Urbain</a>
-                                            <div class="product-card__price"><span class="product-card__price-current">59,99 €</span></div>
-                                            <p class="product-card__stock product-card__stock--available">✓ En stock (12)</p>
-                                            <div class="product-card__actions">
-                                                <form action="panier.html" method="POST">
-                                                    <input type="hidden" name="product_id" value="5">
-                                                    <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Montre" alt="Montre" class="product-card__image">
-                                            <div class="product-card__badges"><span class="badge badge--out-of-stock">Rupture</span></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Accessoires</span>
-                                            <a href="produit.html?id=6" class="product-card__title">Montre Classic</a>
-                                            <div class="product-card__price"><span class="product-card__price-current">89,99 €</span></div>
-                                            <p class="product-card__stock product-card__stock--out">✗ Rupture</p>
-                                            <div class="product-card__actions">
-                                                <button class="btn btn--secondary btn--block" disabled>Indisponible</button>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Pull" alt="Pull" class="product-card__image">
-                                            <div class="product-card__badges"></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Vêtements</span>
-                                            <a href="produit.html?id=7" class="product-card__title">Pull Col Roulé</a>
-                                            <div class="product-card__price"><span class="product-card__price-current">49,99 €</span></div>
-                                            <p class="product-card__stock product-card__stock--available">✓ En stock (15)</p>
-                                            <div class="product-card__actions">
-                                                <form action="panier.html" method="POST">
-                                                    <input type="hidden" name="product_id" value="7">
-                                                    <button type="submit" class="btn btn--primary btn--block">Ajouter</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-
-
-                                    <article class="product-card">
-                                        <div class="product-card__image-wrapper">
-                                            <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=Ceinture" alt="Ceinture" class="product-card__image">
-                                            <div class="product-card__badges"><span class="badge badge--out-of-stock">Rupture</span></div>
-                                        </div>
-                                        <div class="product-card__content">
-                                            <span class="product-card__category">Accessoires</span>
-                                            <a href="produit.html?id=8" class="product-card__title">Ceinture Cuir</a>
-                                            <div class="product-card__price"><span class="product-card__price-current">34,99 €</span></div>
-                                            <p class="product-card__stock product-card__stock--out">✗ Rupture</p>
-                                            <div class="product-card__actions">
-                                                <button class="btn btn--secondary btn--block" disabled>Indisponible</button>
-                                            </div>
-                                        </div>
-                                    </article>
-
-                                </div> -->
-
-                            </div>
-
-                            <!-- ============================================  
+                    <!-- ============================================  
                      PAGINATION
                      JOUR 6 : Générer dynamiquement
                      ============================================ -->
-                            <nav class="pagination">
-                                <a class="pagination__item pagination__item--disabled">←</a>
-                                <a class="pagination__item pagination__item--active">1</a>
-                                <a class="pagination__item">2</a>
-                                <a class="pagination__item">3</a>
-                                <a class="pagination__item">→</a>
-                            </nav>
-                    </div>
+                    <nav class="pagination">
+                        <a class="pagination__item pagination__item--disabled">←</a>
+                        <a class="pagination__item pagination__item--active">1</a>
+                        <a class="pagination__item">2</a>
+                        <a class="pagination__item">3</a>
+                        <a class="pagination__item">→</a>
+                    </nav>
                 </div>
             </div>
+        </div>
     </main>
 
     <footer class="footer">
