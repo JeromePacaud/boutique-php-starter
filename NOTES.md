@@ -36,9 +36,19 @@
 
 ---
 
-## jOUR 04: 2026-01-08:
+## Jour 04: 2026-01-08:
 ### les conditions
 
 - Exercices 1 à 6 complétés
 - Exercices ajouté au répo Github
 - Modifications des badges du catalogues en fonction de conditions
+
+---
+
+## Jour 05: 2026-01-09
+### Les fonctions
+
+- Exercices 1 à 6 complétés
+- Exercices ajouté au répo Github
+- Ajouts de l'affichage du prix barré et du prix réduit 
+- génération du contenu HTML avec des fonctions
