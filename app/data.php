@@ -126,33 +126,37 @@ function isOutOfStock(int $stock, $discount): bool
     return $stock === 0 && $discount > 0 ? true : false;
 }
 
-function getBadge(array $data): string
+function getBadge(array $data): array
 {
-    $class = "";
     $discount = $data["discount"];
     $stock = $data["stock"];
     $isNew = isNewArticle($data);
     $isDiscount = isDiscount($discount);
     $isLast = isLastArticles($stock);
     $outOfStock = isOutOfStock($stock, $discount);
+    $badges = [];
+
+    if ($stock === 0) {
+        return ["badge--out-of-stock"];
+    }
 
     if ($isNew) {
-        $class = "badge--new";
-        return $class;
+        $badges[] = "badge--new";
     }
+
     if ($isLast) {
-        $class = "badge--low-stock";
-        return $class;
+        $badges[] = "badge--low-stock";
     }
+
     if ($outOfStock) {
-        $class = "badge--out-of-stock";
-        return $class;
+        $badges[] = "badge--out-of-stock";
     }
+
     if ($isDiscount) {
-        $class = "badge--promo";
-        return $class;
+        $badges[] = "badge--promo";
     }
-    return $class;
+
+    return $badges;
 }
 
 function inStockOrOutOfStockText(int $stock): string
@@ -241,19 +245,24 @@ function createProductCard(array $data): string
     $stock = $data["stock"];
     $category = $data["category"];
 
-    $class = getBadge($data);
+    $classes = getBadge($data);
     $inOrOutOfStock = inStockOrOutOfStockText($stock);
     $disableButton = disableButton($stock);
     $stockClass = getStockClass($stock);
 
-    $text = getBadgeText($class, $data);
+    $badgesHtml = "";
+
+    foreach ($classes as $class) {
+        $badgeText = getBadgeText($class, $data);
+        $badgesHtml .= "<span class=\"badge $class\">$badgeText</span>";
+    }
 
     return <<<HTML
         <article class="product-card">
             <div class="product-card__image-wrapper">
                 <img src="https://via.placeholder.com/300x300/e2e8f0/64748b?text=T-shirt" alt="T-shirt" class="product-card__image">
                 <div class="product-card__badges">
-                    <span class="badge $class">$text</span>
+                    $badgesHtml
                 </div>
             </div>
             <div class="product-card__content">
