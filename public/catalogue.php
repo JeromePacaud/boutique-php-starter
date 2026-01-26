@@ -71,7 +71,7 @@ usort($filtered, function ($a, $b) use ($sort) {
     }
 });
 
-// PAGINATION
+// PAGINATION (FAIT AVEC IA)
 
 $perPage = 10;
 $totalResults = count($filtered);
@@ -84,7 +84,7 @@ $offset = ($page - 1) * $perPage;
 $paginatedResults = array_slice($filtered, $offset, $perPage);
 
 
-// FONCTION POUR CONSTRUIRE L'URL AVEC FILTRES
+// FONCTION POUR CONSTRUIRE L'URL AVEC FILTRES (FAIT AVEC IA)
 
 function buildUrl($params = [])
 {

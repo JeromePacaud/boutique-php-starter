@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Entity;
+
+use PDO;
+
+
+class Database
+{
+    private static ?PDO $instance = null;
+
+    public static function getInstance(): PDO
+    {
+        if (self::$instance === null) {
+            self::$instance = new PDO(
+                "mysql:host=localhost;dbname=boutique;charset=utf8mb4",
+                "dev",
+                "dev",
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]
+            );
+        }
+
+        return self::$instance;
+    }
+}

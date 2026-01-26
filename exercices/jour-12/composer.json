@@ -1,0 +1,11 @@
+{
+    "name": "formation/jour-12",
+    "description": "Mini framework PHP avec router et controllers",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {}
+}

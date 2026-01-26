@@ -33,7 +33,7 @@ function calcultateDiscount(float $price, $percentage): float
     return $price - ($price * $percentage);
 }
 
-function formatPrice(float $amout, string $currency = "€", int $decimals = 2): string
+function formatPrice(float $amout, string $currency = "€", int $decimals = 3): string
 {
     return number_format($amout, $decimals) . $currency;
 }

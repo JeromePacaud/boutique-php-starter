@@ -27,7 +27,7 @@ function calculateTotal(array $cart): float
 
 function formatPrice(float $amount): string
 {
-    return number_format($amount, 2);
+    return number_format($amount, 3);
 }
 
 function formatDate(string $date): string
